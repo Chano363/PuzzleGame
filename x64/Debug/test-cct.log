@@ -1,0 +1,5 @@
+﻿  pullze_main.cpp
+D:\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_main.cpp(38,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  test-cct.vcxproj -> D:\Code\90-b2\x64\Debug\90-b2.exe
