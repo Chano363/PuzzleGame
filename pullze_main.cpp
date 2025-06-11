@@ -16,7 +16,6 @@ using namespace std;
 
 int main()
 {
-
 	cct_setcursor(CURSOR_VISIBLE_NORMAL);
 	cct_setfontsize("新宋体", 16);
 	cct_setconsoleborder(120, 50, 120, 200);
@@ -37,14 +36,14 @@ int main()
 		case 'A': pullze_base(0,0); break;
 		case 'B': pullze_base(1,0); break;
 		case 'C': pullze_base(1,1); break;
-		case 'D': pullze_console(); break;
-		case 'E': pullze_console(); break;
-		case 'F': pullze_console(); break;
-		case 'G': pullze_console(); break;
-		case 'H': pullze_console(); break;
-		case 'I': pullze_console(); break;
-		case 'J': pullze_console(); break;
-		case 'K': pullze_console(); break;
+		case 'D': pullze_console(0); break;
+		case 'E': pullze_console(0); break;
+		case 'F': pullze_console(0); break;
+		case 'G': pullze_console(0); break;
+		case 'H': pullze_console(0); break;
+		case 'I': pullze_console(0); break;
+		case 'J': pullze_console(0); break;
+		case 'K': pullze_console(0); break;
 		case 'Q': user_quit = 1; break;
 		}
 		if (user_choice != 'Q') end_wait();

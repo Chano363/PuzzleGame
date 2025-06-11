@@ -1,50 +1,50 @@
-/* Ñ§ºÅ ĞÕÃû °à¼¶ */
+ï»¿/* å­¦å· å§“å ç­çº§ */
 
 #include "pullze.h"
 using namespace std;
 
 void draw_line(const char *begin, const char *end, int count) {
     cout << begin << ' ';
-    for (int i = 0; i < count; ++i) cout << "¨T ";
+    for (int i = 0; i < count; ++i) cout << "â• ";
     cout << end << ' ';
 }
 
 void draw_three_line(const char *begin, const char *mid1, const char *mid2, const char *end, int count1, int count2, int count3) {
     cout << begin << ' ';
-    for (int i = 0; i < count1; ++i) cout << "¨T ";
+    for (int i = 0; i < count1; ++i) cout << "â• ";
     cout << mid1 << ' ';
-    for (int i = 0; i < count2; ++i) cout << "¨T ";
+    for (int i = 0; i < count2; ++i) cout << "â• ";
     cout << mid2 << ' ';
-    for (int i = 0; i < count3; ++i) cout << "¨T ";
+    for (int i = 0; i < count3; ++i) cout << "â• ";
     cout << end << ' ';
 }
 
 void draw_lines(int n, char chars[][3], int *count, bool *no_divider) {
     for (int i = 0; i < n; ++i) {
         cout << chars[i] << ' ';
-        for (int j = 0; j < count[i]; ++j) cout << (no_divider[i] ? "  " : "¨T ");
+        for (int j = 0; j < count[i]; ++j) cout << (no_divider[i] ? "  " : "â• ");
     }
     cout << chars[n] << ' ';
 }
 
-// type: 0 ÎªÇò£¬1 Îª ¡Á£¬2 Îª¿Õ
+// type: 0 ä¸ºçƒï¼Œ1 ä¸º Ã—ï¼Œ2 ä¸ºç©º
 void draw(int type, int x, int y, int x_begin, int y_begin, int bg_color, int fg_color, bool boarder) {
     cct_setcolor(bg_color, fg_color);
     if (!boarder) {
         cct_gotoxy(x_begin + x * 2, y_begin + y);
-        if (type == 0) cout << "©–";
-        else if (type == 1) cout << "¡Á";
+        if (type == 0) cout << "ã€‡";
+        else if (type == 1) cout << "Ã—";
         else if (type == 2) cout << "  ";
     }
     else {
         cct_gotoxy(x_begin + x * 8, y_begin + y * 4);
-        cout << (type == 2 ? "      " : "¨X ¨T ¨[ ");
+        cout << (type == 2 ? "      " : "â•” â• â•— ");
         cct_gotoxy(x_begin + x * 8, y_begin + y * 4 + 1);
-        if (type == 0) cout << "¨U ©–¨U ";
-        else if (type == 1) cout << "¨U ¡Á¨U ";
+        if (type == 0) cout << "â•‘ ã€‡â•‘ ";
+        else if (type == 1) cout << "â•‘ Ã—â•‘ ";
         else if (type == 2) cout << "      ";
         cct_gotoxy(x_begin + x * 8, y_begin + y * 4 + 2);
-        cout << (type == 2 ? "      " : "¨^ ¨T ¨a ");
+        cout << (type == 2 ? "      " : "â•š â• â• ");
     }
     cct_setcolor(COLOR_BLACK, COLOR_WHITE);
 }
@@ -66,8 +66,8 @@ void update_ball(int value, bool cheat, int x, int y, int x_begin, int y_begin, 
     draw(type, x, y, x_begin, y_begin, bg_color, fg_color, boarder);
 }
 
-// x_begin, y_begin: Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
-// ·µ»ØÆåÅÌµÄÏÂÒ»ĞĞ
+// x_begin, y_begin: å°çƒå¡«å……èµ·å§‹ä½ç½®
+// è¿”å›æ£‹ç›˜çš„ä¸‹ä¸€è¡Œ
 int console_array_print(int *array, int &x_begin, int &y_begin, bool hint, int play) {
     int size = array[0];
     int row[16][10] = {0}, col[16][10] = {0};
@@ -83,84 +83,84 @@ int console_array_print(int *array, int &x_begin, int &y_begin, bool hint, int p
     int pos_row;
 
     if (!hint) {
-        // ÁĞºÅºÍĞĞºÅ±íÍ·
+        // åˆ—å·å’Œè¡Œå·è¡¨å¤´
         cout << "   ";
         for (int i = 0; i < size; ++i) cout << ' ' << char('a' + i);
         for (int i = 0; i < size; ++i) cct_gotoxy(0, 3 + i), cout << char('A' + i);
 
-        // Õû¸öÇòÅÌ
+        // æ•´ä¸ªçƒç›˜
         cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
         pos_row = 2;
         cct_gotoxy(2, pos_row++);
-        draw_line("¨X", "¨[", size); // ¶¥²¿±ß¿ò
-        // Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
+        draw_line("â•”", "â•—", size); // é¡¶éƒ¨è¾¹æ¡†
+        // å°çƒå¡«å……èµ·å§‹ä½ç½®
         x_begin = 4, y_begin = pos_row;
         for (int i = 0; i < size; ++i) {
             cct_gotoxy(2, pos_row++);
-            cout << "¨U ";
+            cout << "â•‘ ";
             for (int j = 0; j < size; ++j) cout << "  ";
-            cout << "¨U ";
+            cout << "â•‘ ";
         }
         cct_gotoxy(2, pos_row++);
-        draw_line("¨^", "¨a", size); // µ×²¿±ß¿ò
+        draw_line("â•š", "â•", size); // åº•éƒ¨è¾¹æ¡†
     }
     else {
         pos_row = 1;
         cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
-        int space = 6 + 2 * max_row; // ×ó²à¿Õ¸ñ
-        cct_gotoxy(space, pos_row++); // ÆğÊ¼Î»ÖÃ
+        int space = 6 + 2 * max_row; // å·¦ä¾§ç©ºæ ¼
+        cct_gotoxy(space, pos_row++); // èµ·å§‹ä½ç½®
 
-        draw_line("¨X", "¨[", size); // ¶¥²¿±ß¿ò
-        // Ã¿ÁĞÃ¿×éÁ¬ĞøĞ¡Çò¸öÊı
+        draw_line("â•”", "â•—", size); // é¡¶éƒ¨è¾¹æ¡†
+        // æ¯åˆ—æ¯ç»„è¿ç»­å°çƒä¸ªæ•°
         for (int i = 0; i < max_col; ++i) {
             cct_gotoxy(space, pos_row++);
-            cout << "¨U ";
+            cout << "â•‘ ";
             for (int j = 0; j < size; ++j) {
                 int index = max_col - i;
                 if (index <= col[j][0]) cout << setw(2) << col[j][col[j][0] - index + 1];
                 else cout << "  ";
             }
-            cout << "¨U ";
+            cout << "â•‘ ";
         }
 
         cct_gotoxy(space, pos_row++);
-        draw_line("¨d", "¨g", size); // Êı×ÖºÍÁĞºÅ·Ö¸î
+        draw_line("â• ", "â•£", size); // æ•°å­—å’Œåˆ—å·åˆ†å‰²
 
-        // ÁĞºÅ±íÍ·
+        // åˆ—å·è¡¨å¤´
         cct_gotoxy(space, pos_row++);
-        cout << "¨U ";
+        cout << "â•‘ ";
         for (int i = 0; i < size; ++i) cout << ' ' << char('a' + i);
-        cout << "¨U " << endl;
+        cout << "â•‘ " << endl;
         pos_row++;
 
-        draw_three_line("¨X", "¨j", "¨p", "¨g", max_row, 1, size); // ¶¥²¿±ß¿òºÍÁĞºÅ
+        draw_three_line("â•”", "â•¦", "â•¬", "â•£", max_row, 1, size); // é¡¶éƒ¨è¾¹æ¡†å’Œåˆ—å·
         cout << endl;
 
-        // Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
+        // å°çƒå¡«å……èµ·å§‹ä½ç½®
         x_begin = space + 2, y_begin = pos_row;
         pos_row++;
 
-        // Ã¿ĞĞÃ¿×éÁ¬ĞøĞ¡Çò³¤¶È£¬¼°ºóÃæµÄÇòÅÌ
+        // æ¯è¡Œæ¯ç»„è¿ç»­å°çƒé•¿åº¦ï¼ŒåŠåé¢çš„çƒç›˜
         for (int i = 0; i < size; ++i) {
-            cout << "¨U";
+            cout << "â•‘";
             for (int j = 0; j < max_row; ++j) {
                 int index = max_row - j;
                 if (index <= row[i][0]) cout << setw(2) << row[i][row[i][0] - index + 1];
                 else cout << "  ";
             }
-            cout << " ¨U  " << char('A' + i) << "¨U ";
+            cout << " â•‘  " << char('A' + i) << "â•‘ ";
             for (int j = 0; j < size; ++j) cout << "  ";
-            cout << "¨U " << endl;
+            cout << "â•‘ " << endl;
             pos_row++;
         }
 
-        draw_three_line("¨^", "¨m", "¨m", "¨a", max_row, 1, size); // µ×²¿±ß¿ò
+        draw_three_line("â•š", "â•©", "â•©", "â•", max_row, 1, size); // åº•éƒ¨è¾¹æ¡†
     }
     
-    if (!play) { // »­³öĞ¡Çò
+    if (!play) { // ç”»å‡ºå°çƒ
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
-                if (array[i * size + j + 1]) draw(0, j, i, x_begin, y_begin, COLOR_HBLUE, COLOR_BLACK, 0); // ÓĞĞ¡Çò
+                if (array[i * size + j + 1]) draw(0, j, i, x_begin, y_begin, COLOR_HBLUE, COLOR_BLACK, 0); // æœ‰å°çƒ
             }
         }
     }
@@ -169,9 +169,9 @@ int console_array_print(int *array, int &x_begin, int &y_begin, bool hint, int p
     return pos_row;
 }
 
-// Ã¿¸öĞ¡ÇòÖ®¼ä¶¼ÓĞ¿òÏß
-// x_begin, y_begin: Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
-// ·µ»ØÆåÅÌµÄÏÂÒ»ĞĞ
+// æ¯ä¸ªå°çƒä¹‹é—´éƒ½æœ‰æ¡†çº¿
+// x_begin, y_begin: å°çƒå¡«å……èµ·å§‹ä½ç½®
+// è¿”å›æ£‹ç›˜çš„ä¸‹ä¸€è¡Œ
 int console_array_print_full(int *array, int &x_begin, int &y_begin, bool hint, int play) {
     int size = array[0];
     int row[16][10] = {0}, col[16][10] = {0};
@@ -190,38 +190,38 @@ int console_array_print_full(int *array, int &x_begin, int &y_begin, bool hint, 
     bool no_divider[20] = {0};
 
     if (!hint) {
-        // ÁĞºÅºÍĞĞºÅ±íÍ·
+        // åˆ—å·å’Œè¡Œå·è¡¨å¤´
         cout << "      ";
         for (int i = 0; i < size; ++i) cout << char('a' + i) << (i == size - 1 ? "" : "       ");
         for (int i = 0; i < size; ++i) cct_gotoxy(0, 4 + i * 4), cout << char('A' + i);
 
-        // Õû¸öÇòÅÌ
+        // æ•´ä¸ªçƒç›˜
         cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
         pos_row = 2;
         cct_gotoxy(2, pos_row++);
 
-        // ¶¥²¿±ß¿ò
-        for (int i = 0; i < size; ++i) strcpy(chars[i], "¨j"), count[i] = 3;
-        strcpy(chars[0], "¨X"), strcpy(chars[size], "¨[");
+        // é¡¶éƒ¨è¾¹æ¡†
+        for (int i = 0; i < size; ++i) strcpy(chars[i], "â•¦"), count[i] = 3;
+        strcpy(chars[0], "â•”"), strcpy(chars[size], "â•—");
         draw_lines(size, chars, count, no_divider);
 
-        // ´¦ÀíºÃ·Ö¸îÏß
-        for (int i = 0; i < size; ++i) strcpy(chars[i], "¨p"), count[i] = 3;
-        strcpy(chars[0], "¨d"), strcpy(chars[size], "¨g");
-        // Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
+        // å¤„ç†å¥½åˆ†å‰²çº¿
+        for (int i = 0; i < size; ++i) strcpy(chars[i], "â•¬"), count[i] = 3;
+        strcpy(chars[0], "â• "), strcpy(chars[size], "â•£");
+        // å°çƒå¡«å……èµ·å§‹ä½ç½®
         x_begin = 4, y_begin = pos_row;
 
         for (int i = 0; i < size; ++i) {
             for (int _ = 0; _ < 3; ++_) {
                 cct_gotoxy(2, pos_row++);
-                cout << "¨U ";
-                for (int j = 0; j < size; ++j) cout << "      ¨U ";
+                cout << "â•‘ ";
+                for (int j = 0; j < size; ++j) cout << "      â•‘ ";
             }
             cct_gotoxy(2, pos_row++);
 
             if (i == size - 1) {
-                for (int j = 0; j < size; ++j) strcpy(chars[j], "¨m");
-                strcpy(chars[0], "¨^"), strcpy(chars[size], "¨a");
+                for (int j = 0; j < size; ++j) strcpy(chars[j], "â•©");
+                strcpy(chars[0], "â•š"), strcpy(chars[size], "â•");
             }
             draw_lines(size, chars, count, no_divider);
         }
@@ -229,66 +229,66 @@ int console_array_print_full(int *array, int &x_begin, int &y_begin, bool hint, 
     else {
         pos_row = 1;
         cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
-        int space = 6 + 2 * max_row; // ×ó²à¿Õ¸ñ
-        cct_gotoxy(space, pos_row++); // ÆğÊ¼Î»ÖÃ
+        int space = 6 + 2 * max_row; // å·¦ä¾§ç©ºæ ¼
+        cct_gotoxy(space, pos_row++); // èµ·å§‹ä½ç½®
 
-        draw_line("¨X", "¨[", 4 * size - 1); // ¶¥²¿±ß¿ò
-        // Ã¿ÁĞÃ¿×éÁ¬ĞøĞ¡Çò¸öÊı
+        draw_line("â•”", "â•—", 4 * size - 1); // é¡¶éƒ¨è¾¹æ¡†
+        // æ¯åˆ—æ¯ç»„è¿ç»­å°çƒä¸ªæ•°
         for (int i = 0; i < max_col; ++i) {
             cct_gotoxy(space, pos_row++);
-            cout << "¨U  ";
+            cout << "â•‘  ";
             for (int j = 0; j < size; ++j) {
                 int index = max_col - i;
                 if (index <= col[j][0]) cout << setw(2) << col[j][col[j][0] - index + 1];
                 else cout << "  ";
                 cout << (j == size - 1 ? "   " : "      ");
             }
-            cout << "¨U ";
+            cout << "â•‘ ";
         }
 
         cct_gotoxy(space, pos_row++);
-        draw_line("¨d", "¨g", 4 * size - 1); // Êı×ÖºÍÁĞºÅ·Ö¸î
+        draw_line("â• ", "â•£", 4 * size - 1); // æ•°å­—å’Œåˆ—å·åˆ†å‰²
 
-        // ÁĞºÅ±íÍ·
+        // åˆ—å·è¡¨å¤´
         cct_gotoxy(space, pos_row++);
-        cout << "¨U  ";
+        cout << "â•‘  ";
         for (int i = 0; i < size; ++i) cout << ' ' << char('a' + i) << (i == size - 1 ? "   " : "      ");
-        cout << "¨U " << endl;
+        cout << "â•‘ " << endl;
         pos_row++;
 
-        // ÁĞºÅ¸úÇòÖ®¼äµÄ·Ö¸îÏß
-        for (int i = 0; i < size; ++i) strcpy(chars[i + 2], "¨j"), count[i + 2] = 3;
-        strcpy(chars[0], "¨X"), strcpy(chars[1], "¨j"), strcpy(chars[2], "¨p"), strcpy(chars[size + 2], "¨g");
+        // åˆ—å·è·Ÿçƒä¹‹é—´çš„åˆ†å‰²çº¿
+        for (int i = 0; i < size; ++i) strcpy(chars[i + 2], "â•¦"), count[i + 2] = 3;
+        strcpy(chars[0], "â•”"), strcpy(chars[1], "â•¦"), strcpy(chars[2], "â•¬"), strcpy(chars[size + 2], "â•£");
         count[0] = max_row, count[1] = 1;
         draw_lines(size + 2, chars, count, no_divider);
         cout << endl;
 
-        // Ğ¡ÇòÌî³äÆğÊ¼Î»ÖÃ
+        // å°çƒå¡«å……èµ·å§‹ä½ç½®
         x_begin = space + 2, y_begin = pos_row;
         pos_row++;
 
-        // ´¦ÀíºÃºóÃæµÄ·Ö¸îÏß
-        for (int i = 0; i < size; ++i) strcpy(chars[i + 2], "¨p");
-        strcpy(chars[0], "¨U"), strcpy(chars[1], "¨U"), strcpy(chars[2], "¨d"), strcpy(chars[size + 2], "¨g");
+        // å¤„ç†å¥½åé¢çš„åˆ†å‰²çº¿
+        for (int i = 0; i < size; ++i) strcpy(chars[i + 2], "â•¬");
+        strcpy(chars[0], "â•‘"), strcpy(chars[1], "â•‘"), strcpy(chars[2], "â• "), strcpy(chars[size + 2], "â•£");
         no_divider[0] = 1, no_divider[1] = 1;
 
-        // Ã¿ĞĞÃ¿×éÁ¬ĞøĞ¡Çò³¤¶È£¬¼°ºóÃæµÄÇòÅÌ
+        // æ¯è¡Œæ¯ç»„è¿ç»­å°çƒé•¿åº¦ï¼ŒåŠåé¢çš„çƒç›˜
         for (int i = 0; i < size; ++i) {
             for (int _ = 0; _ < 3; ++_) {
-                cout << "¨U";
+                cout << "â•‘";
                 for (int j = 0; j < max_row; ++j) {
                     int index = max_row - j;
                     if (_ == 1 && index <= row[i][0]) cout << setw(2) << row[i][row[i][0] - index + 1];
                     else cout << "  ";
                 }
-                cout << " ¨U  " << (_ == 1 ? char('A' + i) : ' ') << "¨U ";
-                for (int j = 0; j < size; ++j) cout << "      ¨U ";
+                cout << " â•‘  " << (_ == 1 ? char('A' + i) : ' ') << "â•‘ ";
+                for (int j = 0; j < size; ++j) cout << "      â•‘ ";
                 cout << endl;
                 pos_row++;
             }
             if (i == size - 1) {
-                for (int j = 0; j < size; ++j) strcpy(chars[j + 2], "¨m");
-                strcpy(chars[0], "¨^"), strcpy(chars[1], "¨m"), strcpy(chars[2], "¨m"), strcpy(chars[size + 2], "¨a");
+                for (int j = 0; j < size; ++j) strcpy(chars[j + 2], "â•©");
+                strcpy(chars[0], "â•š"), strcpy(chars[1], "â•©"), strcpy(chars[2], "â•©"), strcpy(chars[size + 2], "â•");
                 no_divider[0] = 0, no_divider[1] = 0;
             }
             draw_lines(size + 2, chars, count, no_divider);
@@ -297,10 +297,10 @@ int console_array_print_full(int *array, int &x_begin, int &y_begin, bool hint, 
         }
     }
     
-    if (!play) { // »­³öĞ¡Çò
+    if (!play) { // ç”»å‡ºå°çƒ
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
-                if (array[i * size + j + 1]) draw(0, j, i, x_begin, y_begin, COLOR_HBLUE, COLOR_BLACK, 1); // ÓĞĞ¡Çò
+                if (array[i * size + j + 1]) draw(0, j, i, x_begin, y_begin, COLOR_HBLUE, COLOR_BLACK, 1); // æœ‰å°çƒ
             }
         }
     }
@@ -319,10 +319,10 @@ void listen_loop(int *array, bool play, int row, int x_begin, int y_begin, bool 
     while (1) {
         int ret = cct_read_keyboard_and_mouse(X, Y, maction, keycode1, keycode2);
         cct_gotoxy(14, row);
-        for (int i = 0; i < 40; ++i) cout << ' '; // Çå³ıÖ®Ç°µÄÌáÊ¾
+        for (int i = 0; i < 40; ++i) cout << ' '; // æ¸…é™¤ä¹‹å‰çš„æç¤º
         cct_gotoxy(14, row);
         
-        if (ret == CCT_MOUSE_EVENT) { // Êó±êÊÂ¼ş
+        if (ret == CCT_MOUSE_EVENT) { // é¼ æ ‡äº‹ä»¶
             int posx, posy;
             bool good_pos;
             if (!boarder) {
@@ -339,55 +339,55 @@ void listen_loop(int *array, bool play, int row, int x_begin, int y_begin, bool 
                 case MOUSE_LEFT_BUTTON_CLICK: 
                     if (play && good_pos) {
                         int &ball = array[posy * size + posx + 1];
-                        if (ball / 2 % 2 == 0) ball += 2, ball -= 4 * (ball / 4); // Ö®Ç°Ã»ÓĞÑ¡ÔñÕâÀïÓĞÇò£¬Èç¹ûÖ®Ç°Ñ¡ÔñÃ»ÇòÒªÈ¡Ïû
-                        else ball -= 2; // Ö®Ç°Ñ¡ÔñÕâÀïÓĞÇò£¬È¡ÏûÑ¡Ôñ
+                        if (ball / 2 % 2 == 0) ball += 2, ball -= 4 * (ball / 4); // ä¹‹å‰æ²¡æœ‰é€‰æ‹©è¿™é‡Œæœ‰çƒï¼Œå¦‚æœä¹‹å‰é€‰æ‹©æ²¡çƒè¦å–æ¶ˆ
+                        else ball -= 2; // ä¹‹å‰é€‰æ‹©è¿™é‡Œæœ‰çƒï¼Œå–æ¶ˆé€‰æ‹©
                         update_ball(array[posy * size + posx + 1], cheat, posx, posy, x_begin, y_begin, boarder);
                     }
                     cct_gotoxy(14, row);
-                    cout << "[¶Áµ½×ó¼ü] "; 
+                    cout << "[è¯»åˆ°å·¦é”®] "; 
                     for (int i = 0; i < 40; ++i) cout << ' ';
                     cct_gotoxy(14, row);
                     break;
                 case MOUSE_RIGHT_BUTTON_CLICK:
                     if (play && good_pos) {
                         int &ball = array[posy * size + posx + 1];
-                        if (ball / 4 % 2 == 0) ball += 4, ball -= 2 * (ball / 2 % 2); // Ö®Ç°Ã»ÓĞÑ¡ÔñÕâÀïÃ»Çò£¬Èç¹ûÖ®Ç°Ñ¡ÔñÓĞÇòÒªÈ¡Ïû
-                        else ball -= 4; // Ö®Ç°Ñ¡ÔñÕâÀïÃ»Çò£¬È¡ÏûÑ¡Ôñ
+                        if (ball / 4 % 2 == 0) ball += 4, ball -= 2 * (ball / 2 % 2); // ä¹‹å‰æ²¡æœ‰é€‰æ‹©è¿™é‡Œæ²¡çƒï¼Œå¦‚æœä¹‹å‰é€‰æ‹©æœ‰çƒè¦å–æ¶ˆ
+                        else ball -= 4; // ä¹‹å‰é€‰æ‹©è¿™é‡Œæ²¡çƒï¼Œå–æ¶ˆé€‰æ‹©
                         update_ball(array[posy * size + posx + 1], cheat, posx, posy, x_begin, y_begin, boarder);
                     }
                     cct_gotoxy(14, row);
                     for (int i = 0; i < 40; ++i) cout << ' ';
                     cct_gotoxy(14, row);
-                    cout << "[¶Áµ½ÓÒ¼ü] "; 
+                    cout << "[è¯»åˆ°å³é”®] "; 
                     break;
-                default: cout << "[µ±Ç°¹â±ê] "; break;
+                default: cout << "[å½“å‰å…‰æ ‡] "; break;
             }
-            if (good_pos) cout << char('A' + posy) << "ĞĞ" << char('a' + posx) << "ÁĞ";
-            else cout << "Î»ÖÃ·Ç·¨";
+            if (good_pos) cout << char('A' + posy) << "è¡Œ" << char('a' + posx) << "åˆ—";
+            else cout << "ä½ç½®éæ³•";
         }
-        else if (ret == CCT_KEYBOARD_EVENT) { // ¼üÅÌÊÂ¼ş
+        else if (ret == CCT_KEYBOARD_EVENT) { // é”®ç›˜äº‹ä»¶
             bool worked = 0;
             if (play) {
                 bool win;
                 switch (keycode1) {
                     case 'y': case 'Y':
                         worked = 1;
-                        cout << "[¶Áµ½Ìá½»¼ü]";
+                        cout << "[è¯»åˆ°æäº¤é”®]";
                         Sleep(100);
                         win = check_win(array);
                         cct_gotoxy(14, row);
                         for (int i = 0; i < 30; ++i) cout << ' ';
                         cct_gotoxy(14, row);
                         if (win) {
-                            cout << "[Ìá½»³É¹¦]" << endl;
+                            cout << "[æäº¤æˆåŠŸ]" << endl;
                             return;
                         }
-                        cout << "Ìá½»´íÎó, ¿ÉÓÃ×÷±×Ä£Ê½²é¿´";
+                        cout << "æäº¤é”™è¯¯, å¯ç”¨ä½œå¼Šæ¨¡å¼æŸ¥çœ‹";
                         break;
                     case 'z': case 'Z':
                         worked = 1;
                         cheat ^= 1;
-                        cout << "[×÷±×Ä£Ê½" << (cheat ? "¿ª" : "¹Ø") << "]" << endl;
+                        cout << "[ä½œå¼Šæ¨¡å¼" << (cheat ? "å¼€" : "å…³") << "]" << endl;
                         for (int i = 0; i < size; ++i) {
                             for (int j = 0; j < size; ++j) {
                                 update_ball(array[i * size + j + 1], cheat, j, i, x_begin, y_begin, boarder);
@@ -396,22 +396,22 @@ void listen_loop(int *array, bool play, int row, int x_begin, int y_begin, bool 
                         break;
                     case 'q': case 'Q':
                         worked = 1;
-                        cout << "[¶Áµ½Q/q£¬ÓÎÏ·½áÊø]" << endl;
+                        cout << "[è¯»åˆ°Q/qï¼Œæ¸¸æˆç»“æŸ]" << endl;
                         return;
                 }
             }
             if (!worked) switch (keycode1) {
                 case 224:
                     switch (keycode2) {
-                        case KB_ARROW_UP: cout << "[¶Áµ½ÉÏ¼ıÍ·]"; break;
-                        case KB_ARROW_DOWN: cout << "[¶Áµ½ÏÂ¼ıÍ·]"; break;
-                        case KB_ARROW_LEFT: cout << "[¶Áµ½×ó¼ıÍ·]"; break;
-                        case KB_ARROW_RIGHT: cout << "[¶Áµ½ÓÒ¼ıÍ·]"; break;
+                        case KB_ARROW_UP: cout << "[è¯»åˆ°ä¸Šç®­å¤´]"; break;
+                        case KB_ARROW_DOWN: cout << "[è¯»åˆ°ä¸‹ç®­å¤´]"; break;
+                        case KB_ARROW_LEFT: cout << "[è¯»åˆ°å·¦ç®­å¤´]"; break;
+                        case KB_ARROW_RIGHT: cout << "[è¯»åˆ°å³ç®­å¤´]"; break;
                     }
                     worked = 1;
                     break;
-                case 13: cout << "[¶Áµ½»Ø³µ¼ü]" << endl; if (!play) return; break;
-                default: cout << "[¶Áµ½¼üÂë] " << keycode1 << '/' << keycode2;
+                case 13: cout << "[è¯»åˆ°å›è½¦é”®]" << endl; if (!play) return; break;
+                default: cout << "[è¯»åˆ°é”®ç ] " << keycode1 << '/' << keycode2;
             }
         }
     }
@@ -424,11 +424,11 @@ void pullze_console(bool boarder, bool hint, bool listen, bool play) {
     int array[300] = {0};
     generate_array(array);
     cct_cls();
-    if (!boarder) cct_setconsoleborder(70, 32, 140, 64), cct_setfontsize("ĞÂËÎÌå", 26);
-    else cct_setconsoleborder(90, 150, 180, 300), cct_setfontsize("ĞÂËÎÌå", 13 + (15 - array[0]));
-    cct_setcursor(CURSOR_INVISIBLE); // Òş²Ø¹â±ê
-    if (play) cout << "×ó¼üÑ¡©–/ÓÒ¼üÑ¡¡Á,Y/yÌá½»,Z/z×÷±×,Q/q½áÊø";
-    else if (listen) cout << "²âÊÔ¼üÅÌ/Êó±ê×ó¼ü/ÓÒ¼ü£¬°´»Ø³µÍË³ö";
+    if (!boarder) cct_setconsoleborder(70, 32, 140, 64), cct_setfontsize("æ–°å®‹ä½“", 26);
+    else cct_setconsoleborder(90, 150, 180, 300), cct_setfontsize("æ–°å®‹ä½“", 13 + (15 - array[0]));
+    cct_setcursor(CURSOR_INVISIBLE); // éšè—å…‰æ ‡
+    if (play) cout << "å·¦é”®é€‰ã€‡/å³é”®é€‰Ã—,Y/yæäº¤,Z/zä½œå¼Š,Q/qç»“æŸ";
+    else if (listen) cout << "æµ‹è¯•é”®ç›˜/é¼ æ ‡å·¦é”®/å³é”®ï¼ŒæŒ‰å›è½¦é€€å‡º";
 
     int x_begin, y_begin, row;
     if (!boarder) row = console_array_print(array, x_begin, y_begin, hint, play);

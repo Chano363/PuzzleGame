@@ -101,7 +101,7 @@ void display(const int start_y, const char board[max_board_size][max_board_size]
 	// 打印顶栏第二条横向分割线
 	cct_getxy(cmd_x, cmd_y);
 	put_div_line(0, cmd_y, board_size, 0, max_row_count, 0);
-	// 打印列编号
+	// 打印列号
 	cct_getxy(cmd_x, cmd_y);
 	if (banner) {
 		cct_gotoxy(max_row_count * 2 + 3, cmd_y);
