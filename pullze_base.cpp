@@ -14,84 +14,7 @@
 #include "pullze.h"
 
 using namespace std;
-/***************************************************************************
-  函数名称：
-  功    能：随机生成初始时球的位置
-  输入参数：
-		   char board[][]: 区域数据
-		   const int board_size: 区域大小
-  返 回 值：无
-  说    明：
-***************************************************************************/
 
-void generateBalls(char board[max_board_size][max_board_size], const int board_size, int nums[max_board_size][max_board_size][2])
-{
-	long num = board_size * board_size;
-	if (num % 2 == 0) num = num / 2; else num = (num + 1) / 2;
-	int count = 0;
-	srand(time(NULL));
-	while (count < num)
-	{
-		int x = rand() % board_size, y = rand() % board_size;
-		while (board[x][y] != ' ')
-		{
-			x = rand() % board_size; y = rand() % board_size;
-		}
-		board[x][y] = '0';
-		count++;
-	}
-#if 0
-	for (int i = 0; i < board_size; ++i)
-	{
-		for (int j = 0; j < board_size; ++j)
-		{
-			cout << board[i][j] << ' ';
-		}
-		cout << endl;
-	}
-	cout << endl;
-#endif
-	for (int i = 0; i < board_size; ++i)
-	{
-		int cntConsecutive = (board[i][0] == '0' ? 1 : 0);
-		for (int j = 0; j < board_size; ++j)
-		{
-			if (board[i][j] != '0' && board[i][j + 1] == '0') cntConsecutive++;
-			if (board[i][j] == '0') {
-				nums[i][cntConsecutive][0] ++;
-			}
-		}
-		nums[i][0][0] = cntConsecutive; // nums[i][0] 存放数字个数
-	}
-	for (int i = 0; i < board_size; ++i)
-	{
-		int cntConsecutive = (board[0][i] == '0' ? 1 : 0);
-		for (int j = 0; j < board_size; ++j)
-		{
-			if (board[j][i] != '0' && board[j + 1][i] == '0') cntConsecutive++;
-			if (board[j][i] == '0') {
-				nums[i][cntConsecutive][1] ++;
-			}
-		}
-		nums[i][0][1] = cntConsecutive; // nums[i][0] 存放数字个数
-	}
-#if 0
-	for (int i = 0; i < board_size; ++i)
-	{
-		for (int j = 1; j <= nums[i][0][0]; ++j)
-			cout << nums[i][j][0] << ' ';
-		cout << endl;
-	}
-	cout << endl;
-	for (int i = 0; i < board_size; ++i)
-	{
-		for (int j = 1; j <= nums[i][0][1]; ++j)
-			cout << nums[i][j][1] << ' ';
-		cout << endl;
-	}
-#endif
-	return;
-}
 
 /***************************************************************************
   函数名称：
@@ -140,9 +63,8 @@ void put_div_line(const int x, const int y, const int length, const int dir = 0,
   说    明：
 ***************************************************************************/
 
-void display(const char board[max_board_size][max_board_size], const int board_size, const int nums[max_board_size][max_board_size][2], const bool banner = 0, const bool play = 0)
+void display(const int start_y, const char board[max_board_size][max_board_size], const int board_size, const int nums[max_board_size][max_board_size][2], const bool banner = 0, const bool play = 0, const bool cheat = 0)
 {
-	cct_cls();
 	char col = 'a', row = 'A';
 	int max_col_count = -1, max_row_count = -1; // 行/列的最大数量
 	if (banner) 
@@ -155,14 +77,14 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 	// 打印顶栏
 	if (banner) {
 		// 打印第一条横向分割线
-		put_div_line(0, 0, board_size, 0, max_row_count, 0);
+		put_div_line(0, cmd_y, board_size, 0, max_row_count, 0);
 		// 打印左侧纵向边框
 		put_div_line(max_row_count * 2 + 3, cmd_y + 1, max_col_count, 1);
 		// 打印数字
 		for (int i = 0; i < board_size; ++i)
 		{
 			cct_getxy(cmd_x, cmd_y);
-			cmd_y = 1 + max_col_count - nums[i][0][1];
+			cmd_y = start_y + 1 + max_col_count - nums[i][0][1];
 			cmd_x += 2;
 			cct_gotoxy(cmd_x, cmd_y);
 			for (int j = 1; j <= nums[i][0][1]; ++j)
@@ -174,11 +96,11 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 
 		// 打印右侧纵向边框
 		cct_getxy(cmd_x, cmd_y);
-		put_div_line(cmd_x + 2, cmd_y - 2, max_col_count, 1);
+		put_div_line(cmd_x + 2, cmd_y - max_col_count, max_col_count, 1);
 	}
 	// 打印顶栏第二条横向分割线
 	cct_getxy(cmd_x, cmd_y);
-	put_div_line(0, cmd_y, board_size, 0, max_row_count, 1);
+	put_div_line(0, cmd_y, board_size, 0, max_row_count, 0);
 	// 打印列编号
 	cct_getxy(cmd_x, cmd_y);
 	if (banner) {
@@ -217,7 +139,6 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 	{
 		cct_gotoxy(cmd_x, cmd_y - board_size + 1);
 	}
-	// else cct_gotoxy(0, cmd_y);
 	for (int i = 0; i < board_size; ++i)
 	{
 		cout << '|' << row++ << '|';
@@ -225,6 +146,7 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 		cmd_x -= 3;
 		cct_gotoxy(cmd_x, ++cmd_y);
 	}
+	// 打印board
 	cmd_x += 4;
 	cmd_y -= board_size;
 	cct_gotoxy(cmd_x, cmd_y);
@@ -232,7 +154,12 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 	{
 		for (int j = 0; j < board_size; ++j)
 		{
-			cout << board[i][j] << ' ';
+			if (play && board[i][j] == 'O' && !cheat)
+			{
+				cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE), cout << board[i][j] , cct_setcolor(COLOR_BLACK, COLOR_WHITE);
+				cout << ' ';
+			}
+			else cout << board[i][j] << ' ';
 		}
 		cct_getxy(cmd_x, cmd_y);
 		cout << '|';
@@ -243,55 +170,69 @@ void display(const char board[max_board_size][max_board_size], const int board_s
 	put_div_line(0, cmd_y, board_size, 0, max_row_count, 1);
 }
 
-/***************************************************************************
-  函数名称：
-  功    能: 初始化
-  输入参数：
-		   const char board: 区域数据
-		   const int board_size: 区域大小
-  返 回 值：无
-  说    明：
-***************************************************************************/
-
-void initGame(int* board_size, char data_board[max_board_size][max_board_size], char input_board[max_board_size][max_board_size], int nums[max_board_size][max_board_size][2])
-{
-
-	cout << "请输入数据区大小(5/10/15)" << endl;
-	cin >> *board_size;
-	bool flag = false;
-	while (true) {
-		for (int i = 1; i <= 3; i++)
-		{
-			if (*board_size == 5 * i) { flag = true; break; }
-		}
-		if (flag) break;
-		cct_cls();
-		cout << "请输入重新输入数据区大小(5/10/15)" << endl;
-		cin >> *board_size;
-	}
-	for (int i = 0; i < max_board_size; i++) {
-		for (int j = 0; j < max_board_size; j++) {
-			data_board[i][j] = ' ';
-			input_board[i][j] = ' ';
-			nums[i][j][0] = 0;
-			nums[i][j][1] = 0;
-		}
-	}
-	generateBalls(data_board, *board_size, nums);
-}
 
 void pullze_base(const bool banner,const bool play) {
 	int board_size;
 	char data_board[max_board_size][max_board_size], input_board[max_board_size][max_board_size];
 	int nums[max_board_size][max_board_size][2]; // 每行/列球的个数
+	int cmd_x, cmd_y;
 	initGame(&board_size, data_board, input_board, nums);
-	display(data_board, board_size, nums, banner, play);
-	if (play)
+	cct_cls();
+	if (!play)
 	{
-		while (true)
-		{
+		display(0, data_board, board_size, nums, banner, play);
+		return;
+	}
 
+	char opt[2];
+	bool cheat = false;
+	display(0, input_board, board_size, nums, banner, play, cheat);
+	while (true)
+	{
+		cout << endl;
+		cout << "命令形式：Aa=等价于图形游戏中鼠标左键选择Aa位(区分大小写)" << endl;
+		cout << "            不需要支持图形界面的右键打叉，再次输入Aa相当于清除" << endl;
+		cout << "        X/x=退出(新行仅有X/x，不分大小写)" << endl;
+		cout << "        Y/y=提交(新行仅有Y/y，不分大小写)" << endl;
+		cout << "        Z/z=作弊(新行仅有Z/z，不分大小写)" << endl;
+		cout << "        Ctrl+c 强制退出" << endl;
+		cout << "请输入 : ";
+		cin >> opt[0];
+
+		if (opt[0] >= 'A' && opt[0] <= 'A' + board_size - 1) {
+			cin >> opt[1];
+			if (input_board[opt[0] - 'A'][opt[1] - 'a'] != ' ') // 清除
+			{
+				input_board[opt[0] - 'A'][opt[1] - 'a'] = ' ';
+			}
+			else // 放置
+				input_board[opt[0] - 'A'][opt[1] - 'a'] = 'O';
+			cout << "输入" << opt[0] << opt[1] << "后：" << endl;
+			cct_getxy(cmd_x, cmd_y);
+			display(cmd_y,input_board, board_size, nums, banner, play, cheat);
+		}
+		else if (opt[0] == 'X' || opt[0] == 'x')
+		{
+  				return;
+		}
+		else if (opt[0] == 'Y' || opt[0] == 'y')
+		{
+			if (check_win(input_board, data_board, board_size))
+			{
+				return;
+			}
+		}
+		else if (opt[0] == 'Z' || opt[0] == 'z')
+		{
+			cheat = true;
+			cout << "输入" << opt[0] << "后：" << endl;
+			cct_getxy(cmd_x, cmd_y);
+			display(cmd_y,data_board, board_size, nums, banner, play, cheat);
+		}
+		else {
+			cout << "输入错误" << endl;
 		}
 	}
+	
 	return;
 }

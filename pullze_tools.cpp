@@ -51,7 +51,14 @@ char menu()
     return (c >= 'a' && c <= 'z') ? (c - 'a' + 'A') : c; // 转换为大写
 }
 
-// 等待用户输入"End"结束
+/***************************************************************************
+  函数名称：
+  功    能：
+  输入参数：
+  返 回 值：
+  说    明：
+***************************************************************************/
+
 void end_wait() {
     char buf[100] = { 0 };
     int x, y;
@@ -72,4 +79,145 @@ void end_wait() {
         cct_gotoxy(x, y + 1);
         cout << "输入错误，请重新输入..." << endl;
     }
+}
+
+/***************************************************************************
+  函数名称：
+  功    能：
+  输入参数：
+  返 回 值：
+  说    明：
+***************************************************************************/
+
+bool check_win(const char input_board[max_board_size][max_board_size],const char data_board[max_board_size][max_board_size],const int board_size)
+{
+    for (int i = 0; i < board_size; ++i)
+    {
+        for (int j = 0; j < board_size; ++j)
+        {
+            if (input_board[i][j] != data_board[i][j])
+            {
+                cout << "提交错误，[" << (char)('A' + i) << "]行[" << (char)('a' + j) << "列不符合要求" << endl;
+                return false;
+            }
+        }
+    }
+    cout << endl << "提交成功，游戏结束" << endl;
+    return true;
+}
+
+/***************************************************************************
+  函数名称：
+  功    能：随机生成初始时球的位置
+  输入参数：
+		   char board[][]: 区域数据
+		   const int board_size: 区域大小
+  返 回 值：无
+  说    明：
+***************************************************************************/
+
+void generateBalls(char board[max_board_size][max_board_size], const int board_size, int nums[max_board_size][max_board_size][2])
+{
+	long num = board_size * board_size;
+	if (num % 2 == 0) num = num / 2; else num = (num + 1) / 2;
+	int count = 0;
+	srand(time(NULL));
+	while (count < num)
+	{
+		int x = rand() % board_size, y = rand() % board_size;
+		while (board[x][y] != ' ')
+		{
+			x = rand() % board_size; y = rand() % board_size;
+		}
+		board[x][y] = 'O';
+		count++;
+	}
+#if 0
+	for (int i = 0; i < board_size; ++i)
+	{
+		for (int j = 0; j < board_size; ++j)
+		{
+			cout << board[i][j] << ' ';
+		}
+		cout << endl;
+	}
+	cout << endl;
+#endif
+	for (int i = 0; i < board_size; ++i)
+	{
+		int cntConsecutive = (board[i][0] == 'O' ? 1 : 0);
+		for (int j = 0; j < board_size; ++j)
+		{
+			if (board[i][j] != 'O' && board[i][j + 1] == 'O') cntConsecutive++;
+			if (board[i][j] == 'O') {
+				nums[i][cntConsecutive][0] ++;
+			}
+		}
+		nums[i][0][0] = cntConsecutive; // nums[i][0] 存放数字个数
+	}
+	for (int i = 0; i < board_size; ++i)
+	{
+		int cntConsecutive = (board[0][i] == 'O' ? 1 : 0);
+		for (int j = 0; j < board_size; ++j)
+		{
+			if (board[j][i] != 'O' && board[j + 1][i] == 'O') cntConsecutive++;
+			if (board[j][i] == 'O') {
+				nums[i][cntConsecutive][1] ++;
+			}
+		}
+		nums[i][0][1] = cntConsecutive; // nums[i][0] 存放数字个数
+	}
+#if 0
+	for (int i = 0; i < board_size; ++i)
+	{
+		for (int j = 1; j <= nums[i][0][0]; ++j)
+			cout << nums[i][j][0] << ' ';
+		cout << endl;
+	}
+	cout << endl;
+	for (int i = 0; i < board_size; ++i)
+	{
+		for (int j = 1; j <= nums[i][0][1]; ++j)
+			cout << nums[i][j][1] << ' ';
+		cout << endl;
+	}
+#endif
+	return;
+}
+
+/***************************************************************************
+  函数名称：
+  功    能: 初始化
+  输入参数：
+		   const char board: 区域数据
+		   const int board_size: 区域大小
+  返 回 值：无
+  说    明：
+***************************************************************************/
+
+void initGame(int* board_size, char data_board[max_board_size][max_board_size], char input_board[max_board_size][max_board_size], int nums[max_board_size][max_board_size][2])
+{
+
+	cout << "请输入数据区大小(5/10/15)" << endl;
+	cin >> *board_size;
+	bool flag = false;
+	while (true) {
+		for (int i = 1; i <= 3; i++)
+		{
+			if (*board_size == 5 * i) { flag = true; break; }
+		}
+		if (flag) break;
+		cct_cls();
+		cout << "请输入重新输入数据区大小(5/10/15)" << endl;
+		cin >> *board_size;
+	}
+	for (int i = 0; i < max_board_size; i++) {
+		for (int j = 0; j < max_board_size; j++) {
+			data_board[i][j] = ' ';
+			input_board[i][j] = ' ';
+			nums[i][j][0] = 0;
+			nums[i][j][1] = 0;
+		}
+	}
+	generateBalls(data_board, *board_size, nums);
 }

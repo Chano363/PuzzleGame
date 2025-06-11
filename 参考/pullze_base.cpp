@@ -1,17 +1,17 @@
-/* Ñ§ºÅ ĞÕÃû °à¼¶ */
+ï»¿/* å­¦å· å§“å ç­çº§ */
 
 #include "pullze.h"
 using namespace std;
 
-// Êä³ö·Ö¸îÏß
+// è¾“å‡ºåˆ†å‰²çº¿
 void split_line(int size, int max_row = 0, bool head = 0) {
-    // ·Ö¸îÏßÑùÊ½£º
+    // åˆ†å‰²çº¿æ ·å¼ï¼š
 
     // max_row = 4, head = false
     // ---------+-+-----------+-----------+
     //  2 1 3 4 |A| O  O O  O | O   O   O |
 
-    // head = true (±íÍ·µÄÁ½ĞĞ·Ö¸îÏß£¬Ã»ÓĞĞĞºÅ)
+    // head = true (è¡¨å¤´çš„ä¸¤è¡Œåˆ†å‰²çº¿ï¼Œæ²¡æœ‰è¡Œå·)
     // -----------+-----------+-----------+
     //            | 2 3 1 5 3 | 4 2 1 1 1 |
 
@@ -19,14 +19,14 @@ void split_line(int size, int max_row = 0, bool head = 0) {
     // +-+-----------+
     // |A| O  O O  O |
 
-    // ×ó±ßÃ¿ĞĞÁ¬Ğø¸öÊıµÄ¿ÕÏ¶
+    // å·¦è¾¹æ¯è¡Œè¿ç»­ä¸ªæ•°çš„ç©ºéš™
     for (int i = 0; i < max_row; ++i) cout << "--";
     if (max_row > 0) cout << '-';
 
-    // ĞĞºÅÉÏÃæµÄ¿ò
+    // è¡Œå·ä¸Šé¢çš„æ¡†
     cout << (head && max_row > 0 ? '-' : '+') << "-+";
 
-    // Ğ¡ÇòÉÏÃæµÄ¿ò
+    // å°çƒä¸Šé¢çš„æ¡†
     for (int i = 0; i < size; ++i) {
         cout << "--";
         if (i % 5 == 4) cout << "-+";
@@ -34,9 +34,9 @@ void split_line(int size, int max_row = 0, bool head = 0) {
     cout << endl;
 }
 
-// hint: ÊÇ·ñÓĞÌáÊ¾ĞĞÁĞ
-// play = 1: ½»»¥ÓÎÏ·£¬ÎŞ×÷±×
-// play = 2: ½»»¥ÓÎÏ·£¬ÓĞ×÷±×
+// hint: æ˜¯å¦æœ‰æç¤ºè¡Œåˆ—
+// play = 1: äº¤äº’æ¸¸æˆï¼Œæ— ä½œå¼Š
+// play = 2: äº¤äº’æ¸¸æˆï¼Œæœ‰ä½œå¼Š
 void array_print(int *array, bool hint = 0, int play = 0) {
     int size = array[0];
     int row[16][10] = {0}, col[16][10] = {0};
@@ -46,7 +46,7 @@ void array_print(int *array, bool hint = 0, int play = 0) {
         if (row[i][0] > max_row) max_row = row[i][0];
         if (col[i][0] > max_col) max_col = col[i][0];
     }
-    if (!hint) max_row = max_col = 0; // Èç¹ûÃ»ÓĞÌáÊ¾ĞĞÁĞ£¬Ôò²»ÏÔÊ¾
+    if (!hint) max_row = max_col = 0; // å¦‚æœæ²¡æœ‰æç¤ºè¡Œåˆ—ï¼Œåˆ™ä¸æ˜¾ç¤º
 
     if (hint) {
         split_line(size, max_row, 1);
@@ -54,8 +54,8 @@ void array_print(int *array, bool hint = 0, int play = 0) {
             for (int j = 0; j < max_row * 2 + 1 + 2; ++j) cout << ' ';
             cout << '|';
             for (int j = 0; j < size; ++j) {
-                int index = max_col - i; // Ä¿Ç°ÊÇ´ÓÏÂµ½ÉÏµÚ¼¸ĞĞ
-                // Êä³öµÄÊ±ºòÊÇ´ÓÉÏµ½ÏÂ£¬ËùÒÔÊÇ·´×ÅµÄ
+                int index = max_col - i; // ç›®å‰æ˜¯ä»ä¸‹åˆ°ä¸Šç¬¬å‡ è¡Œ
+                // è¾“å‡ºçš„æ—¶å€™æ˜¯ä»ä¸Šåˆ°ä¸‹ï¼Œæ‰€ä»¥æ˜¯åç€çš„
                 if (index <= col[j][0]) cout << setw(2) << col[j][col[j][0] - index + 1];
                 else cout << "  ";
                 if (j % 5 == 4) cout << " |";
@@ -66,65 +66,65 @@ void array_print(int *array, bool hint = 0, int play = 0) {
     }
     else split_line(size);
 
-    // ÁĞºÅ±íÍ·
+    // åˆ—å·è¡¨å¤´
     if (hint) for (int j = 0; j < max_row * 2 + 1 + 2; ++j) cout << ' ';
     else cout << "| ";
     cout << '|';
     for (int i = 0; i < size; ++i) {
         cout << ' ' << char('a' + i);
-        if (i % 5 == 4) cout << " |"; // Ã¿5¸öÁĞºóÊä³öÒ»¸ö·Ö¸ô·û
+        if (i % 5 == 4) cout << " |"; // æ¯5ä¸ªåˆ—åè¾“å‡ºä¸€ä¸ªåˆ†éš”ç¬¦
     }
     cout << endl;
     split_line(size, max_row);
     
     for (int i = 0; i < size; ++i) {
-        // Êä³öÃ¿ĞĞÃ¿×éÁ¬ĞøĞ¡Çò³¤¶È
+        // è¾“å‡ºæ¯è¡Œæ¯ç»„è¿ç»­å°çƒé•¿åº¦
         for (int j = 0; j < max_row; ++j) {
             int index = max_row - j;
             if (index <= row[i][0]) cout << setw(2) << row[i][row[i][0] - index + 1];
             else cout << "  ";
         }
         if (hint) cout << ' ';
-        // ĞĞºÅ±íÍ·
+        // è¡Œå·è¡¨å¤´
         cout << "|" << char('A' + i) << '|';
-        // Êä³öÃ¿ĞĞÃ¿ÁĞĞ¡Çò
+        // è¾“å‡ºæ¯è¡Œæ¯åˆ—å°çƒ
         for (int j = 0; j < size; ++j) {
-            int ball = array[i * size + j + 1] % 2; // Êµ¼ÊÓĞÎŞĞ¡Çò
-            int player = array[i * size + j + 1] / 2; // ÓÃ»§ÊÇ·ñÑ¡Ôñ´Ë´¦ÓĞĞ¡Çò
-            if (play == 0) cout << (ball ? " O" : "  "); // Ô­ÑùÊä³ö
-            else if (play == 1) { // ½»»¥ÓÎÏ·£¬ÎŞ×÷±×
+            int ball = array[i * size + j + 1] % 2; // å®é™…æœ‰æ— å°çƒ
+            int player = array[i * size + j + 1] / 2; // ç”¨æˆ·æ˜¯å¦é€‰æ‹©æ­¤å¤„æœ‰å°çƒ
+            if (play == 0) cout << (ball ? " O" : "  "); // åŸæ ·è¾“å‡º
+            else if (play == 1) { // äº¤äº’æ¸¸æˆï¼Œæ— ä½œå¼Š
                 cout << ' ';
                 if (player) cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE), cout << "O", cct_setcolor(COLOR_BLACK, COLOR_WHITE);
                 else cout << ' ';
             }
-            else if (play == 2) { // ÓĞ×÷±×
+            else if (play == 2) { // æœ‰ä½œå¼Š
                 cout << ' ';
                 if (player) cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE), cout << (ball ? 'O' : 'X'), cct_setcolor(COLOR_BLACK, COLOR_WHITE);
                 else cout << (ball ? 'O' : ' ');
             }
-            if (j % 5 == 4) cout << " |"; // Ã¿5¸öĞ¡ÇòºóÊä³öÒ»¸ö·Ö¸ô·û
+            if (j % 5 == 4) cout << " |"; // æ¯5ä¸ªå°çƒåè¾“å‡ºä¸€ä¸ªåˆ†éš”ç¬¦
         }
         cout << endl;
-        if (i % 5 == 4) split_line(size, max_row); // Ã¿5ĞĞÊä³öÒ»Ìõ·Ö¸ôÏß
+        if (i % 5 == 4) split_line(size, max_row); // æ¯5è¡Œè¾“å‡ºä¸€æ¡åˆ†éš”çº¿
     }
     cout << endl;
 }
 
-// -1: ÍË³ö
-// -2: Ìá½»
-// -3: ×÷±×
-// ÆäËû£ºÑ¡ÖĞµÄĞ¡ÇòÎ»ÖÃ
+// -1: é€€å‡º
+// -2: æäº¤
+// -3: ä½œå¼Š
+// å…¶ä»–ï¼šé€‰ä¸­çš„å°çƒä½ç½®
 int get_opt(int size) {
     char buf[30];
     while (1) {
         cout << endl;
-        cout << "ÃüÁîĞÎÊ½£ºAa=µÈ¼ÛÓÚÍ¼ĞÎÓÎÏ·ÖĞÊó±ê×ó¼üÑ¡ÔñAaÎ»(Çø·Ö´óĞ¡Ğ´)" << endl;
-        cout << "            ²»ĞèÒªÖ§³ÖÍ¼ĞÎ½çÃæµÄÓÒ¼ü´ò²æ£¬ÔÙ´ÎÊäÈëAaÏàµ±ÓÚÇå³ı" << endl;
-        cout << "        X/x=ÍË³ö(ĞÂĞĞ½öÓĞX/x£¬²»·Ö´óĞ¡Ğ´)" << endl;
-        cout << "        Y/y=Ìá½»(ĞÂĞĞ½öÓĞY/y£¬²»·Ö´óĞ¡Ğ´)" << endl;
-        cout << "        Z/z=×÷±×(ĞÂĞĞ½öÓĞZ/z£¬²»·Ö´óĞ¡Ğ´)" << endl;
-        cout << "        Ctrl+c Ç¿ÖÆÍË³ö" << endl;
-        cout << "ÇëÊäÈë : ";
+        cout << "å‘½ä»¤å½¢å¼ï¼šAa=ç­‰ä»·äºå›¾å½¢æ¸¸æˆä¸­é¼ æ ‡å·¦é”®é€‰æ‹©Aaä½(åŒºåˆ†å¤§å°å†™)" << endl;
+        cout << "            ä¸éœ€è¦æ”¯æŒå›¾å½¢ç•Œé¢çš„å³é”®æ‰“å‰ï¼Œå†æ¬¡è¾“å…¥Aaç›¸å½“äºæ¸…é™¤" << endl;
+        cout << "        X/x=é€€å‡º(æ–°è¡Œä»…æœ‰X/xï¼Œä¸åˆ†å¤§å°å†™)" << endl;
+        cout << "        Y/y=æäº¤(æ–°è¡Œä»…æœ‰Y/yï¼Œä¸åˆ†å¤§å°å†™)" << endl;
+        cout << "        Z/z=ä½œå¼Š(æ–°è¡Œä»…æœ‰Z/zï¼Œä¸åˆ†å¤§å°å†™)" << endl;
+        cout << "        Ctrl+c å¼ºåˆ¶é€€å‡º" << endl;
+        cout << "è¯·è¾“å…¥ : ";
         char opt;
         int tot = 0;
         while ((opt = _getch()) != '\r' && tot < 19) {
@@ -139,16 +139,16 @@ int get_opt(int size) {
         if ((buf[0] == 'Y' || buf[0] == 'y') && buf[1] == '\0') return -2;
         if ((buf[0] == 'Z' || buf[0] == 'z') && buf[1] == '\0') return -3;
         if (buf[0] >= 'A' && buf[0] <= 'A' + size - 1 && buf[1] >= 'a' && buf[1] <= 'a' + size - 1 && buf[2] == '\0') {
-            return (buf[0] - 'A') * size + (buf[1] - 'a') + 1; // ·µ»ØÎ»ÖÃ
+            return (buf[0] - 'A') * size + (buf[1] - 'a') + 1; // è¿”å›ä½ç½®
         }
-        cout << "ÊäÈë´íÎó" << endl;
+        cout << "è¾“å…¥é”™è¯¯" << endl;
     }
 }
 
 void pullze_base(bool hint, bool play) {
     int array[300] = {0};
     generate_array(array);
-    cout << "³õÊ¼Êı×é£º" << endl;
+    cout << "åˆå§‹æ•°ç»„ï¼š" << endl;
     array_print(array, hint, play);
 
     if (!play) return;
@@ -159,30 +159,30 @@ void pullze_base(bool hint, bool play) {
         int opt = get_opt(size);
         if (opt == -1) {
             cout << endl;
-            return; // ÍË³ö
+            return; // é€€å‡º
         }
         if (opt == -2) {
             bool win = check_win(array);
             if (win) {
-                cout << endl << "Ìá½»³É¹¦£¬ÓÎÏ·½áÊø" << endl;
+                cout << endl << "æäº¤æˆåŠŸï¼Œæ¸¸æˆç»“æŸ" << endl;
                 return;
             }
             else {
-                cout << endl << "Ìá½»´íÎó, ¿ÉÓÃ×÷±×Ä£Ê½²é¿´" << endl;
+                cout << endl << "æäº¤é”™è¯¯, å¯ç”¨ä½œå¼Šæ¨¡å¼æŸ¥çœ‹" << endl;
                 continue;
             }
         }
         if (opt == -3) {
-            cout << endl << "ÊäÈëZ/zºó£º" << endl;
+            cout << endl << "è¾“å…¥Z/zåï¼š" << endl;
             cheat ^= 1;
             array_print(array, 1, cheat + 1);
             continue;
         }
-        int x = (opt - 1) / size; // ĞĞ
-        int y = (opt - 1) % size; // ÁĞ
-        cout << endl << "ÊäÈë" << char('A' + x) << char('a' + y) << "ºó£º" << endl;
-        if (array[opt] / 2 == 0) array[opt] += 2; // ÓÃ»§Ñ¡Ôñ´Ë´¦ÓĞĞ¡Çò
-        else array[opt] -= 2; // ÓÃ»§Ñ¡Ôñ´Ë´¦ÎŞĞ¡Çò
+        int x = (opt - 1) / size; // è¡Œ
+        int y = (opt - 1) % size; // åˆ—
+        cout << endl << "è¾“å…¥" << char('A' + x) << char('a' + y) << "åï¼š" << endl;
+        if (array[opt] / 2 == 0) array[opt] += 2; // ç”¨æˆ·é€‰æ‹©æ­¤å¤„æœ‰å°çƒ
+        else array[opt] -= 2; // ç”¨æˆ·é€‰æ‹©æ­¤å¤„æ— å°çƒ
         array_print(array, 1, cheat + 1);
     }
 }
