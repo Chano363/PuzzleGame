@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\cmd_console_tools.cpp">
+    <ClCompile Include="cmd_console_tools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_base.cpp">
+    <ClCompile Include="pullze_base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_console.cpp">
+    <ClCompile Include="pullze_console.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_main.cpp">
+    <ClCompile Include="pullze_main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_tools.cpp">
+    <ClCompile Include="pullze_tools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\cmd_console_tools.h">
+    <ClInclude Include="cmd_console_tools.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze.h">
+    <ClInclude Include="pullze.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

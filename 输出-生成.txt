@@ -1,0 +1,89 @@
+﻿已启动生成…
+1>------ 已启动生成: 项目: 90-b2, 配置: Debug x64 ------
+1>cmd_console_tools.cpp
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(211,29): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,40): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,54): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,68): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,82): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,96): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(218,98): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,20): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,34): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,48): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,62): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,76): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(219,78): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,20): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,34): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,48): error C3688: 文本后缀“鈹”无效；未找到文文本运算符或文本运算符模板“operator """"鈹”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,62): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,76): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(220,78): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(221,20): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(221,34): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(221,58): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(221,72): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(221,86): error C3688: 文本后缀“鈺”无效；未找到文文本运算符或文本运算符模板“operator """"鈺”
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(339,40): error C2065: “rect”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(348,40): error C2065: “rect”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(355,40): error C2065: “rect”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(363,40): error C2065: “rect”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(644,10): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(647,2): error C2146: 语法错误: 缺少“;”(在标识符“GetCurrentConsoleFont”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(648,62): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(648,56): error C2146: 语法错误: 缺少“;”(在标识符“pixels”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(648,56): error C2065: “pixels”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(648,62): error C2143: 语法错误: 缺少“;”(在“字符串”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(649,2): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(649,62): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(649,56): error C2146: 语法错误: 缺少“;”(在标识符“pixels”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(649,56): error C2065: “pixels”: 未声明的标识符
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(649,62): error C2143: 语法错误: 缺少“;”(在“字符串”的前面)
+1>D:\github\PuzzleGame\cmd_console_tools.cpp(651,2): error C2143: 语法错误: 缺少“;”(在“return”的前面)
+1>pullze_base.cpp
+1>D:\github\PuzzleGame\pullze_base.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze_base.cpp(32,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+1>D:\github\PuzzleGame\pullze_base.cpp(103,79): error C2572: “put_div_line”: 重定义默认参数 : 参数 1
+1>D:\github\PuzzleGame\pullze.h(21): message : 参见“put_div_line”的声明
+1>D:\github\PuzzleGame\pullze_base.cpp(103,104): error C2572: “put_div_line”: 重定义默认参数 : 参数 2
+1>D:\github\PuzzleGame\pullze.h(21): message : 参见“put_div_line”的声明
+1>D:\github\PuzzleGame\pullze_base.cpp(103,128): error C2572: “put_div_line”: 重定义默认参数 : 参数 3
+1>D:\github\PuzzleGame\pullze.h(21): message : 参见“put_div_line”的声明
+1>pullze_main.cpp
+1>D:\github\PuzzleGame\pullze_main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze_main.cpp(29,18): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_main.cpp(30,2): error C2146: 语法错误: 缺少“)”(在标识符“cct_setconsoleborder”的前面)
+1>D:\github\PuzzleGame\pullze_main.cpp(29,2): error C2660: “cct_setfontsize”: 函数不接受 1 个参数
+1>D:\github\PuzzleGame\cmd_console_tools.h(82,6): message : 参见“cct_setfontsize”的声明
+1>D:\github\PuzzleGame\pullze_main.cpp(30,2): error C2146: 语法错误: 缺少“;”(在标识符“cct_setconsoleborder”的前面)
+1>D:\github\PuzzleGame\pullze_main.cpp(38,19): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_main.cpp(39,3): error C2146: 语法错误: 缺少“)”(在标识符“cct_setconsoleborder”的前面)
+1>D:\github\PuzzleGame\pullze_main.cpp(38,3): error C2660: “cct_setfontsize”: 函数不接受 1 个参数
+1>D:\github\PuzzleGame\cmd_console_tools.h(82,6): message : 参见“cct_setfontsize”的声明
+1>D:\github\PuzzleGame\pullze_main.cpp(39,3): error C2146: 语法错误: 缺少“;”(在标识符“cct_setconsoleborder”的前面)
+1>D:\github\PuzzleGame\pullze_main.cpp(74,11): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_main.cpp(75,3): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_main.cpp(78,11): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_main.cpp(79,3): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>pullze_tools.cpp
+1>D:\github\PuzzleGame\pullze_tools.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+1>D:\github\PuzzleGame\pullze_tools.cpp(25,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(26,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_tools.cpp(29,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(30,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_tools.cpp(31,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(32,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_tools.cpp(34,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(35,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_tools.cpp(36,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(37,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>D:\github\PuzzleGame\pullze_tools.cpp(39,13): error C2001: 常量中有换行符
+1>D:\github\PuzzleGame\pullze_tools.cpp(40,5): error C2146: 语法错误: 缺少“;”(在标识符“cout”的前面)
+1>正在生成代码...
+1>已完成生成项目“test-cct.vcxproj”的操作 - 失败。
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========

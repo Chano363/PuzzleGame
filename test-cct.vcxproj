@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cmd_console_tools.cpp" />
+    <ClCompile Include="pullze_base.cpp" />
+    <ClCompile Include="pullze_console.cpp" />
+    <ClCompile Include="pullze_main.cpp" />
+    <ClCompile Include="pullze_tools.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cmd_console_tools.h" />
+    <ClInclude Include="pullze.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -117,10 +128,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 /execution-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,17 +152,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\cmd_console_tools.h" />
-    <ClInclude Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\cmd_console_tools.cpp" />
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_base.cpp" />
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_console.cpp" />
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_main.cpp" />
-    <ClCompile Include="..\..\github\大作业2\大作业2\24252-900102-W1401.综合题 - 第02题 - 数织游戏\pullze_tools.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

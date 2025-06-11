@@ -1,10 +1,10 @@
-/* Ñ§ºÅ ĞÕÃû °à¼¶ */
+ï»¿/* å­¦å· å§“å ç­çº§ */
 
 #include "pullze.h"
 using namespace std;
 
 int main() {
-    // ÓÃGB 2312±àÂëµÄÖĞÎÄ×Ö·û¼¯
+    // ç”¨GB 2312ç¼–ç çš„ä¸­æ–‡å­—ç¬¦é›†
     SetConsoleOutputCP(936);
     SetConsoleCP(936);
     srand(time(0));
@@ -12,7 +12,7 @@ int main() {
     bool user_quit = 0;
     while (!user_quit) {
         cct_setcursor(CURSOR_VISIBLE_NORMAL);
-        cct_setfontsize("ĞÂËÎÌå", 16);
+        cct_setfontsize("æ–°å®‹ä½“", 16);
         cct_setconsoleborder(120, 50, 120, 200);
         cct_setcolor(COLOR_BLACK, COLOR_WHITE);
         cct_cls();
