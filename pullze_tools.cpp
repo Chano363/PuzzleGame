@@ -132,7 +132,7 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 		board[x][y] = 'O';
 		count++;
 	}
-#if 0
+#ifndef NODEBUG
 	for (int i = 0; i < board_size; ++i)
 	{
 		for (int j = 0; j < board_size; ++j)
@@ -167,7 +167,7 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 		}
 		nums[i][0][1] = cntConsecutive; // nums[i][0] 存放数字个数
 	}
-#if 0
+#ifndef NODEBUG
 	for (int i = 0; i < board_size; ++i)
 	{
 		for (int j = 1; j <= nums[i][0][0]; ++j)

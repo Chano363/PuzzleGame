@@ -1,3 +1,4 @@
 ﻿  pullze_console.cpp
+D:\github\PuzzleGame\pullze_console.cpp(275): warning C4172: 返回局部变量或临时变量的地址: board_pos
 LINK : warning LNK4044: 无法识别的选项“/utf-8”；已忽略
   test-cct.vcxproj -> D:\github\PuzzleGame\x64\Debug\90-b2.exe

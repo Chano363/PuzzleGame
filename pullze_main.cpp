@@ -36,14 +36,14 @@ int main()
 		case 'A': pullze_base(0,0); break;
 		case 'B': pullze_base(1,0); break;
 		case 'C': pullze_base(1,1); break;
-		case 'D': pullze_console(0); break;
-		case 'E': pullze_console(1); break;
-		case 'F': pullze_console(0); break;
-		case 'G': pullze_console(0); break;
-		case 'H': pullze_console(0); break;
-		case 'I': pullze_console(0); break;
-		case 'J': pullze_console(0); break;
-		case 'K': pullze_console(0); break;
+		case 'D': pullze_console(0,0); break;
+		case 'E': pullze_console(1,0); break;
+		case 'F': pullze_console(1,1); break;
+		case 'G': pullze_console(0,0); break;
+		case 'H': pullze_console(0,0); break;
+		case 'I': pullze_console(0,0); break;
+		case 'J': pullze_console(0,0); break;
+		case 'K': pullze_console(0,0); break;
 		case 'Q': user_quit = 1; break;
 		}
 		if (user_choice != 'Q') end_wait();
