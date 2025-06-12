@@ -80,7 +80,7 @@ void display(const int start_y, const char board[max_board_size][max_board_size]
 		put_div_line(0, cmd_y, board_size, 0, max_row_count, 0);
 		// 打印左侧纵向边框
 		put_div_line(max_row_count * 2 + 3, cmd_y + 1, max_col_count, 1);
-		// 打印数字
+		// 打印顶栏数字
 		for (int i = 0; i < board_size; ++i)
 		{
 			cct_getxy(cmd_x, cmd_y);

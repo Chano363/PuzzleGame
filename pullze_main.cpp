@@ -37,7 +37,7 @@ int main()
 		case 'B': pullze_base(1,0); break;
 		case 'C': pullze_base(1,1); break;
 		case 'D': pullze_console(0); break;
-		case 'E': pullze_console(0); break;
+		case 'E': pullze_console(1); break;
 		case 'F': pullze_console(0); break;
 		case 'G': pullze_console(0); break;
 		case 'H': pullze_console(0); break;
