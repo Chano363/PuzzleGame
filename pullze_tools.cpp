@@ -89,8 +89,63 @@ void end_wait() {
   说    明：
 ***************************************************************************/
 
-bool check_win(const char input_board[max_board_size][max_board_size],const char data_board[max_board_size][max_board_size],const int board_size)
+bool check_win(const char input_board[max_board_size][max_board_size],const char data_board[max_board_size][max_board_size],const int board_size,const int nums[max_board_size][max_board_size][2])
 {
+	// 不相同但数量符合要求
+	int nums_[max_board_size][max_board_size];
+	bool lose1 = false;
+	for (int i = 0; i < board_size; ++i)
+	{
+		for (int j = 0; j < board_size; ++j)
+		{
+			nums_[i][j] = 0;
+		}
+	}
+	for (int i = 0; i < board_size && !lose1; ++i)
+	{
+		int cntConsecutive = (input_board[i][0] == 'O' ? 1 : 0);
+		for (int j = 0; j < board_size; ++j)
+		{
+			if (input_board[i][j] != 'O' && input_board[i][j + 1] == 'O')
+			{
+				if (nums_[i][cntConsecutive] != nums[i][cntConsecutive][0]) {
+					lose1 = true;
+					break;
+				}
+				cntConsecutive++;
+			}
+			if (input_board[i][j] == 'O') {
+				nums_[i][cntConsecutive];
+			}
+		}
+	}
+	for (int i = 0; i < board_size; ++i)
+	{
+		for (int j = 0; j < board_size; ++j)
+		{
+			nums_[i][j] = 0;
+		}
+	}
+	for (int i = 0; i < board_size && !lose1; ++i)
+	{
+		int cntConsecutive = (input_board[0][i] == 'O' ? 1 : 0);
+		for (int j = 0; j < board_size; ++j)
+		{
+			if (input_board[j][i] != 'O' && input_board[j + 1][i] == 'O') {
+				if (nums_[i][cntConsecutive] != nums[i][cntConsecutive][1])
+					lose1 = true;
+				cntConsecutive++;
+			}
+			if (input_board[j][i] == 'O') {
+				nums_[i][cntConsecutive] ++;
+			}
+		}
+	}
+	if (!lose1)
+	{
+		cout << endl << "提交成功，游戏结束" << endl;
+		return true;
+	}
     for (int i = 0; i < board_size; ++i)
     {
         for (int j = 0; j < board_size; ++j)
@@ -121,7 +176,7 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 	long num = board_size * board_size;
 	if (num % 2 == 0) num = num / 2; else num = (num + 1) / 2;
 	int count = 0;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	while (count < num)
 	{
 		int x = rand() % board_size, y = rand() % board_size;
@@ -143,6 +198,7 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 	}
 	cout << endl;
 #endif
+	int max_row_num = 0, max_col_num = 0; // 行/列连续数字的最大数量
 	for (int i = 0; i < board_size; ++i)
 	{
 		int cntConsecutive = (board[i][0] == 'O' ? 1 : 0);
@@ -154,6 +210,7 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 			}
 		}
 		nums[i][0][0] = cntConsecutive; // nums[i][0] 存放数字个数
+		max_row_num = max_row_num > cntConsecutive ? max_row_num : cntConsecutive;
 	}
 	for (int i = 0; i < board_size; ++i)
 	{
@@ -166,7 +223,10 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 			}
 		}
 		nums[i][0][1] = cntConsecutive; // nums[i][0] 存放数字个数
+		max_col_num = max_col_num > cntConsecutive ? max_col_num : cntConsecutive;
 	}
+	nums[board_size][0][0] = max_row_num;
+	nums[board_size][0][1] = max_col_num;
 #ifndef NODEBUG
 	for (int i = 0; i < board_size; ++i)
 	{

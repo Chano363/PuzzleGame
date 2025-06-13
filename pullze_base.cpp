@@ -63,14 +63,14 @@ void put_div_line(const int x, const int y, const int length, const int dir = 0,
   说    明：
 ***************************************************************************/
 
-void display(const int start_y, const char board[max_board_size][max_board_size], const int board_size, const int nums[max_board_size][max_board_size][2], const bool banner = 0, const bool play = 0, const bool cheat = 0)
+void display(const int start_y, const char board[max_board_size][max_board_size], const char input[max_board_size][max_board_size], const int board_size, const int nums[max_board_size][max_board_size][2], const bool banner = 0, const bool play = 0, const bool cheat = 0)
 {
 	char col = 'a', row = 'A';
 	int max_col_count = -1, max_row_count = -1; // 行/列的最大数量
 	if (banner) 
 	{
-		for (int i = 0; i < board_size; ++i) max_row_count = max_row_count > nums[i][0][0] ? max_row_count : nums[i][0][0];
-		for (int i = 0; i < board_size; ++i) max_col_count = max_col_count > nums[i][0][1] ? max_col_count : nums[i][0][1];
+		max_row_count = nums[board_size][0][0];
+		max_row_count = nums[board_size][0][1];
 	}
 	int cmd_x = 0, cmd_y = 0;
 	cct_getxy(cmd_x, cmd_y);
@@ -154,12 +154,35 @@ void display(const int start_y, const char board[max_board_size][max_board_size]
 	{
 		for (int j = 0; j < board_size; ++j)
 		{
-			if (play && board[i][j] == 'O' && !cheat)
+			if (!play) {
+				cout << board[i][j] << ' ';
+				continue;
+			}
+			if (cheat)
 			{
-				cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE), cout << board[i][j] , cct_setcolor(COLOR_BLACK, COLOR_WHITE);
+				if (input[i][j] != 'O')
+				{
+					cout << board[i][j] << ' ';
+					continue;
+				}
+				cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE);
+				if (input[i][j] == board[i][j]) // 输入相符
+					cout << input[i][j];
+				else
+					cout << 'X';
+				cct_setcolor(COLOR_BLACK, COLOR_WHITE);
 				cout << ' ';
 			}
-			else cout << board[i][j] << ' ';
+			else
+			{
+				if (input[i][j] != 'O')
+				{
+					cout << "  ";
+					continue;
+				}
+				cct_setcolor(COLOR_HYELLOW, COLOR_HBLUE), cout << input[i][j], cct_setcolor(COLOR_BLACK, COLOR_WHITE);
+				cout << ' ';
+			}
 		}
 		cct_getxy(cmd_x, cmd_y);
 		cout << '|';
@@ -180,13 +203,13 @@ void pullze_base(const bool banner,const bool play) {
 	cct_cls();
 	if (!play)
 	{
-		display(0, data_board, board_size, nums, banner, play);
+		display(0, data_board, input_board, board_size, nums, banner, play);
 		return;
 	}
 
 	char opt[2];
 	bool cheat = false;
-	display(0, input_board, board_size, nums, banner, play, cheat);
+	display(0, input_board, input_board, board_size, nums, banner, play, cheat);
 	while (true)
 	{
 		cout << endl;
@@ -209,7 +232,7 @@ void pullze_base(const bool banner,const bool play) {
 				input_board[opt[0] - 'A'][opt[1] - 'a'] = 'O';
 			cout << "输入" << opt[0] << opt[1] << "后：" << endl;
 			cct_getxy(cmd_x, cmd_y);
-			display(cmd_y,input_board, board_size, nums, banner, play, cheat);
+			display(cmd_y, data_board, input_board, board_size, nums, banner, play, cheat);
 		}
 		else if (opt[0] == 'X' || opt[0] == 'x')
 		{
@@ -217,17 +240,18 @@ void pullze_base(const bool banner,const bool play) {
 		}
 		else if (opt[0] == 'Y' || opt[0] == 'y')
 		{
-			if (check_win(input_board, data_board, board_size))
+			if (check_win(input_board, data_board, board_size,nums))
 			{
 				return;
 			}
 		}
 		else if (opt[0] == 'Z' || opt[0] == 'z')
 		{
-			cheat = true;
+			if (cheat) cheat = false;
+			else cheat = true;
 			cout << "输入" << opt[0] << "后：" << endl;
 			cct_getxy(cmd_x, cmd_y);
-			display(cmd_y,data_board, board_size, nums, banner, play, cheat);
+			display(cmd_y,data_board,input_board, board_size, nums, banner, play, cheat);
 		}
 		else {
 			cout << "输入错误" << endl;
