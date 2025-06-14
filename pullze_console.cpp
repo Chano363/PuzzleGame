@@ -369,32 +369,35 @@ void console_display(const char board[max_board_size][max_board_size], const int
   返 回 值：
   说    明：
 ***************************************************************************/
-void darw(const int top_left_x, const int top_left_y, const int x, const int y, const int type)
+void draw(const char type,const int goto_x, const int goto_y)
 {
 	switch (type)
 	{
-	case 0:
+	case B_CIRCLE: case B_CROSS:
 		cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
 		break;
-	case 1:
+	case R_CROSS: case R_CIRCLE:
 		cct_setcolor(COLOR_HRED, COLOR_BLACK);
 		break;
-	case 2:
+	case BLANK:
 		cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
 		break;
+	case W_CIRCLE:
+		cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
+		break;
 	}
-	cct_gotoxy(top_left_x + x * 8, top_left_y + y * 4);
-	cout << (type == 2 ? "       " : " ╔═══╗ ");
-	cct_gotoxy(top_left_x + x * 8, top_left_y + y * 4 + 1);
-	if (type == 0)
+	cct_gotoxy(goto_x, goto_y);
+	cout << (type == BLANK ? "       " : " ╔═══╗ ");
+	cct_gotoxy(goto_x, goto_y + 1);
+	if (type == R_CIRCLE || type == B_CIRCLE || type == W_CIRCLE)
 		cout << " ║ 〇║ ";
-	else if (type == 1)
-		cout << "║ ×║ ";
-	else if (type == 2)
+	else if (type == R_CROSS || type == B_CROSS)
+		cout << " ║ × ║ ";
+	else if (type == BLANK)
 		cout << "       ";
-	cct_gotoxy(top_left_x + x * 8, top_left_y + y * 4 + 2);
-	cout << (type == 2 ? "       " : " ╚═══╝ ");
-	cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
+	cct_gotoxy(goto_x, goto_y + 2);
+	cout << (type == BLANK ? "       " : " ╚═══╝ ");
+	cct_setcolor(COLOR_BLACK, COLOR_WHITE);
 	return;
 }
 
@@ -546,10 +549,9 @@ void console_display_split(const char board[max_board_size][max_board_size], con
 		for (int j = 0; j < board_size; ++j)
 		{
 			// cout << " ";
-			if (board[i][j] == 'O')
-				darw(top_left_x + 1, top_left_y + 1, j, i, 0);
-			else
-				darw(top_left_x + 1, top_left_y + 1, j, i, 2);
+			int goto_x = top_left_x + 1 + j * 8, goto_y = top_left_y + 1 + i * 4;
+			draw(board[i][j] == 'O' ? B_CIRCLE : BLANK, goto_x, goto_y);
+			cct_setcolor(COLOR_HWHITE,COLOR_BLACK);
 			// 打印每个球右侧边框线
 			console_put_div_line(top_left_x + (j + 1) * 8, top_left_y + 1 + i * 4, 3, 1);
 		}
@@ -598,24 +600,27 @@ void console_display_split(const char board[max_board_size][max_board_size], con
   说    明：
 ***************************************************************************/
 
-void put_character(const char ch, const int x, const int y)
+void put_character(const char type, const int x, const int y)
 {
 	cct_gotoxy(x, y);
-	switch (ch)
+	switch (type)
 	{
-	case 'O':
+	case B_CIRCLE: case B_CROSS:
 		cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
-		cout << "〇";
 		break;
-	case ' ':
-		cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
-		cout << "  ";
-		break;
-	case 'X':
+	case R_CROSS: case R_CIRCLE:
 		cct_setcolor(COLOR_HRED, COLOR_BLACK);
-		cout << "X ";
+		break;
+	case BLANK:
+		cct_setcolor(COLOR_HWHITE, COLOR_BLACK);
+		break;
+	case W_CIRCLE:
+		cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
 		break;
 	}
+	if (type == BLANK)cout << "  ";
+	else if(type == W_CIRCLE ||type == B_CIRCLE || type == R_CIRCLE) cout << "〇";
+	else if(type == B_CROSS || type == R_CROSS) cout << "X ";
 	cct_setcolor(COLOR_BLACK, COLOR_WHITE);
 	return;
 }
@@ -658,17 +663,16 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 			int bx, by, goto_x, goto_y; // 在放置区域上的坐标
 			bool good_pos;
 			by = mx - top_left_x, bx = my - top_left_y;
-			// cout << "x % 8 = " << by % 8 << " y % 4 = " << bx % 4 << endl;
 			good_pos = by >= 0 && bx >= 0 && by % 8 > 0 && bx % 4 > 0;
 			by /= 8, bx /= 4;
-			// cout << "x = " << by << " y = " << bx << endl;
 			good_pos = good_pos && by >= 0 && by < board_size && bx >= 0 && bx < board_size;
 			if (!good_pos)
 			{
 				cout << "[当前光标] 位置非法";
 				continue;
 			}
-			goto_x = top_left_x + bx * 8, goto_y = top_left_y + by * 4;
+			goto_x = top_left_x + by * 8 + 1, goto_y = top_left_y + bx * 4 + 1;
+			// cout <<"goto_x "<<goto_x<<"goto_y "<<goto_y<<endl;
 			switch (m_action)
 			{
 			case MOUSE_LEFT_BUTTON_CLICK:
@@ -689,7 +693,7 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 						{
 							output_board[bx][by] = BLANK;
 						}
-						put_character(input_board[bx][by], goto_x, goto_y);
+						draw(output_board[bx][by], goto_x, goto_y);
 						cct_gotoxy(top_left_x, bottom_y + 2);
 						break;
 					}
@@ -697,34 +701,22 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 					{
 					case B_CIRCLE:
 					case R_CROSS:
-						cct_gotoxy(goto_x, goto_y);
-						cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-						cout << "〇";
-						cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = W_CIRCLE;
 						break;
 					case BLANK:
-						cct_gotoxy(goto_x, goto_y);
-						cct_setcolor(COLOR_HRED, COLOR_BLACK);
-						cout << "〇";
-						cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = R_CIRCLE;
 						break;
 					case W_CIRCLE:
 					case B_CROSS:
-						put_character('O', goto_x, goto_y);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = B_CIRCLE;
 						break;
 					case R_CIRCLE:
-						put_character(' ', goto_x, goto_y);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = BLANK;
 					default:
 						break;
 					}
+					draw(output_board[bx][by], goto_x, goto_y);
+					cct_gotoxy(top_left_x, bottom_y + 2);
 				}
 				else
 					return;
@@ -747,40 +739,28 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 						{
 							output_board[bx][by] = BLANK;
 						}
-						put_character(input_board[bx][by], goto_x, goto_y);
+						draw(output_board[bx][by], goto_x, goto_y);
 						cct_gotoxy(top_left_x, bottom_y + 2);
 						break;
 					}
 					switch (output_board[bx][by])
 					{
 					case R_CROSS:
-						put_character(' ', goto_x, goto_y);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = BLANK;
 						break;
 					case B_CROSS:
-						cct_gotoxy(goto_x, goto_y);
-						cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-						cout << "〇";
-						cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = W_CIRCLE;
 						break;
 					case W_CIRCLE:
 					case B_CIRCLE:
-						cct_gotoxy(goto_x, goto_y);
-						cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
-						cout << "X ";
-						cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = B_CROSS;
 						break;
 					default: // BLANK R_CIRCLE
-						put_character('X', goto_x, goto_y);
-						cct_gotoxy(top_left_x, bottom_y + 2);
 						output_board[bx][by] = R_CROSS;
 						break;
 					}
+                    draw(output_board[bx][by], goto_x, goto_y);
+                    cct_gotoxy(top_left_x, bottom_y + 2);
 				}
 				else
 					return;
@@ -844,7 +824,7 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 					{
 						for (int j = 0; j < board_size; ++j)
 						{
-							int goto_x = top_left_x + i * 2, goto_y = top_left_y + j;
+							int goto_x = top_left_x + 1 + j * 8, goto_y = top_left_y + 1 + i * 4;
 							switch (output_board[i][j])
 							{
 							case BLANK:
@@ -852,21 +832,17 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 							case R_CROSS:
 								break;
 							case R_CIRCLE:
-								put_character('O', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = B_CIRCLE;
 								break;
 							case W_CIRCLE:
-								put_character(' ', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = BLANK;
 								break;
 							case B_CROSS:
-								put_character('X', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = R_CROSS;
 								break;
 							}
+                            draw(output_board[i][j], goto_x, goto_y);
+							cct_gotoxy(top_left_x, bottom_y + 2);
 						}
 					}
 				}
@@ -878,42 +854,29 @@ void listen_event_split(const bool play, const char data_board[max_board_size][m
 					{
 						for (int j = 0; j < board_size; ++j)
 						{
-							int goto_x = top_left_x + j * 2, goto_y = top_left_y + i;
+							int goto_x = top_left_x + 1 + j * 8, goto_y = top_left_y + 1 + i * 4;
 							switch (output_board[i][j])
 							{
 							case BLANK:
 								if (data_board[i][j] == ' ')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-								cout << "〇";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = W_CIRCLE;
 								break;
 							case B_CIRCLE:
 								if (data_board[i][j] == 'O')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HRED, COLOR_BLACK);
-								cout << "〇";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = R_CIRCLE;
 								break;
 							case R_CROSS:
 								if (data_board[i][j] == ' ')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
-								cout << "X ";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_y + 2);
 								output_board[i][j] = B_CROSS;
 								break;
 							default:
 								break;
 							}
+							draw(output_board[i][j], goto_x, goto_y);
+							cct_gotoxy(top_left_x, bottom_y + 2);
 						}
 					}
 					cct_setcolor(COLOR_BLACK, COLOR_WHITE);
@@ -992,7 +955,7 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 							{
 								output_board[bx][by] = BLANK;
 							}
-							put_character(input_board[bx][by], goto_x, goto_y);
+							put_character(output_board[bx][by], goto_x, goto_y);
 							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							break;
 						}
@@ -1000,34 +963,22 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 						{
 						case B_CIRCLE:
 						case R_CROSS:
-							cct_gotoxy(goto_x, goto_y);
-							cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-							cout << "〇";
-							cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = W_CIRCLE;
 							break;
 						case BLANK:
-							cct_gotoxy(goto_x, goto_y);
-							cct_setcolor(COLOR_HRED, COLOR_BLACK);
-							cout << "〇";
-							cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = R_CIRCLE;
 							break;
 						case W_CIRCLE:
 						case B_CROSS:
-							put_character('O', goto_x, goto_y);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = B_CIRCLE;
 							break;
 						case R_CIRCLE:
-							put_character(' ', goto_x, goto_y);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = BLANK;
 						default:
 							break;
 						}
+						put_character(output_board[bx][by], goto_x, goto_y);
+						cct_gotoxy(top_left_x, bottom_right_y + 2);
 					}
 					else
 						return;
@@ -1050,40 +1001,28 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 							{
 								output_board[bx][by] = BLANK;
 							}
-							put_character(input_board[bx][by], goto_x, goto_y);
+							put_character(output_board[bx][by], goto_x, goto_y);
 							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							break;
 						}
 						switch (output_board[bx][by])
 						{
 						case R_CROSS:
-							put_character(' ', goto_x, goto_y);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = BLANK;
 							break;
 						case B_CROSS:
-							cct_gotoxy(goto_x, goto_y);
-							cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-							cout << "〇";
-							cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = W_CIRCLE;
 							break;
 						case W_CIRCLE:
 						case B_CIRCLE:
-							cct_gotoxy(goto_x, goto_y);
-							cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
-							cout << "X ";
-							cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = B_CROSS;
 							break;
 						default: // BLANK R_CIRCLE
-							put_character('X', goto_x, goto_y);
-							cct_gotoxy(top_left_x, bottom_right_y + 2);
 							output_board[bx][by] = R_CROSS;
 							break;
 						}
+						put_character(output_board[bx][by], goto_x, goto_y);
+                        cct_gotoxy(top_left_x, bottom_right_y + 2);
 					}
 					else
 						return;
@@ -1150,7 +1089,7 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 					{
 						for (int j = 0; j < board_size; ++j)
 						{
-							int goto_x = top_left_x + i * 2, goto_y = top_left_y + j;
+							int goto_x = top_left_x + j * 2, goto_y = top_left_y + i;
 							switch (output_board[i][j])
 							{
 							case BLANK:
@@ -1158,21 +1097,19 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 							case R_CROSS:
 								break;
 							case R_CIRCLE:
-								put_character('O', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = B_CIRCLE;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							case W_CIRCLE:
-								put_character(' ', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = BLANK;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							case B_CROSS:
-								put_character('X', goto_x, goto_y);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = R_CROSS;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							}
+							cct_gotoxy(top_left_x, bottom_right_y + 2);
 						}
 					}
 				}
@@ -1190,36 +1127,25 @@ void listen_event(const bool play, const char data_board[max_board_size][max_boa
 							case BLANK:
 								if (data_board[i][j] == ' ')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HBLACK, COLOR_BLACK);
-								cout << "〇";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = W_CIRCLE;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							case B_CIRCLE:
 								if (data_board[i][j] == 'O')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HRED, COLOR_BLACK);
-								cout << "〇";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = R_CIRCLE;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							case R_CROSS:
 								if (data_board[i][j] == ' ')
 									break;
-								cct_gotoxy(goto_x, goto_y);
-								cct_setcolor(COLOR_HBLUE, COLOR_BLACK);
-								cout << "X ";
-								cct_setcolor(COLOR_BLACK, COLOR_WHITE);
-								cct_gotoxy(top_left_x, bottom_right_y + 2);
 								output_board[i][j] = B_CROSS;
+								put_character(output_board[i][j], goto_x, goto_y);
 								break;
 							default:
 								break;
 							}
+							cct_gotoxy(top_left_x, bottom_right_y + 2);
 						}
 					}
 					cct_setcolor(COLOR_BLACK, COLOR_WHITE);
@@ -1271,20 +1197,15 @@ void pullze_console_split(const bool banner, const bool mouse, const bool play)
 	cct_cls();
 	cct_setfontsize("新宋体", 10 + (15 - board_size));
 	cct_setconsoleborder(150, 150, 300, 300);
+	if (mouse)
+		if (play)
+			cout << "左键选〇，右键选X ，Y/y提交，Z/z作弊，Q/q退出";
+		else cout << "测试键盘/鼠标左键/右键，按回车退出";
 	if (play)
-	{
 		console_display_split(input_board, board_size, nums, banner);
-	}
 	else
 		console_display_split(data_board, board_size, nums, banner);
 	if (mouse)
-	{
-		if (play)
-		{
-			cout << "左键选〇，右键选X ，Y/y提交，Z/z作弊，Q/q退出";
-		}
-		else cout << "测试键盘/鼠标左键/右键，按回车退出";
 		listen_event_split(play, data_board, input_board, board_size, nums);
-	}
 	return;
 }
