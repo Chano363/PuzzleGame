@@ -21,4 +21,5 @@ void generateBalls(char board[max_board_size][max_board_size], const int board_s
 
 void pullze_base(const bool banner, const bool play);
 
-void pullze_console(const bool banner,const bool mouse,const bool play);
+void pullze_console(const bool banner, const bool mouse, const bool play);
+void pullze_console_split(const bool banner, const bool mouse, const bool play);

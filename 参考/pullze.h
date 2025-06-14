@@ -1,4 +1,4 @@
-/* Ñ§ºÅ ĞÕÃû °à¼¶ */
+ï»¿/* å­¦å· å§“å ç­çº§ */
 
 #pragma once
 #include "cmd_console_tools.h"
@@ -10,16 +10,16 @@
 #include <ctime>
 #include <iomanip>
 
-// pullze_tools ÖĞµÄº¯Êı
-char menu(); // ÏÔÊ¾¹¦ÄÜ²Ëµ¥£¬¶ÁÈ¡ÓÃ»§Ñ¡ÓÃµÄ¹¦ÄÜ
-void end_wait(); // µÈ´ıÓÃ»§ÊäÈë"End"½áÊø
-int input_size(); // »ñÈ¡ÇøÓò´óĞ¡
-bool check_win(int *array); // ¼ì²éÊÇ·ñÊ¤Àû
-void generate_array(int *array); // Éú³É³õÊ¼Êı×é
-void anaylse_array(int *array, int row[][10], int col[][10]); // ·ÖÎöÃ¿ĞĞÃ¿ÁĞĞ¡ÇòµÄÁ¬Ğø¸öÊıÊı×é
+// pullze_tools ä¸­çš„å‡½æ•°
+char menu(); // æ˜¾ç¤ºåŠŸèƒ½èœå•ï¼Œè¯»å–ç”¨æˆ·é€‰ç”¨çš„åŠŸèƒ½
+void end_wait(); // ç­‰å¾…ç”¨æˆ·è¾“å…¥"End"ç»“æŸ
+int input_size(); // è·å–åŒºåŸŸå¤§å°
+bool check_win(int *array); // æ£€æŸ¥æ˜¯å¦èƒœåˆ©
+void generate_array(int *array); // ç”Ÿæˆåˆå§‹æ•°ç»„
+void anaylse_array(int *array, int row[][10], int col[][10]); // åˆ†ææ¯è¡Œæ¯åˆ—å°çƒçš„è¿ç»­ä¸ªæ•°æ•°ç»„
 
-// pullze_base ÖĞµÄº¯Êı
+// pullze_base ä¸­çš„å‡½æ•°
 void pullze_base(bool hint = 0, bool play = 0);
 
-// pullze_console ÖĞµÄº¯Êı
+// pullze_console ä¸­çš„å‡½æ•°
 void pullze_console(bool boarder = 0, bool hint = 0, bool listen = 0, bool play = 0);

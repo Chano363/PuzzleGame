@@ -40,10 +40,10 @@ int main()
 		case 'E': pullze_console(1,0,0); break;
 		case 'F': pullze_console(1,1,0); break;
 		case 'G': pullze_console(1,1,1); break;
-		case 'H': pullze_console(0,0,0); break;
-		case 'I': pullze_console(0,0,0); break;
-		case 'J': pullze_console(0,0,0); break;
-		case 'K': pullze_console(0,0,0); break;
+		case 'H': pullze_console_split(0,0,0); break;
+		case 'I': pullze_console_split(1,0,0); break;
+		case 'J': pullze_console_split(1,1,0); break;
+		case 'K': pullze_console_split(0,0,0); break;
 		case 'Q': user_quit = 1; break;
 		}
 		if (user_choice != 'Q') end_wait();
